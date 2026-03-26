@@ -1,0 +1,13 @@
+{
+  "name": "ofa-panel-z",
+  "version": "9.1.0",
+  "description": "OFA Panel Z - MHA Edition",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
