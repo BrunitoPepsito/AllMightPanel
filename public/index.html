@@ -1,162 +1,287 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>OFA Panel Z — v9.1</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="/css/panel.css"/>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>OFA Panel Z — v9.1</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="/css/panel.css"/>
 </head>
 <body>
-  <canvas id="bg-canvas"></canvas>
 
-  <!-- LOGIN -->
-  <div id="screen-login">
-    <canvas id="login-canvas"></canvas>
-    <div class="login-card">
-      <div class="login-top">
-        <svg class="logo-icon" viewBox="0 0 40 40" fill="none">
-          <polygon points="20,2 38,12 38,28 20,38 2,28 2,12" stroke="#f0b429" stroke-width="1.5" fill="none"/>
-          <polygon points="20,8 32,15 32,25 20,32 8,25 8,15" stroke="#f0b429" stroke-width="0.8" fill="rgba(240,180,41,0.07)"/>
-          <line x1="20" y1="2" x2="20" y2="38" stroke="#f0b429" stroke-width="0.5" opacity="0.4"/>
-          <line x1="2" y1="12" x2="38" y2="28" stroke="#f0b429" stroke-width="0.5" opacity="0.4"/>
-          <line x1="38" y1="12" x2="2" y2="28" stroke="#f0b429" stroke-width="0.5" opacity="0.4"/>
-          <circle cx="20" cy="20" r="4" fill="#f0b429" opacity="0.9"/>
+<!-- LOGIN -->
+<div id="screen-login">
+  <canvas id="login-bg"></canvas>
+  <div class="lc">
+    <div class="lc-corner tl"></div><div class="lc-corner tr"></div>
+    <div class="lc-corner bl"></div><div class="lc-corner br"></div>
+    <div class="lc-top">
+      <svg class="lc-hex" viewBox="0 0 44 44" width="44" height="44" fill="none">
+        <polygon points="22,2 41,13 41,31 22,42 3,31 3,13" stroke="#f0b429" stroke-width="1.5" fill="rgba(240,180,41,0.05)"/>
+        <polygon points="22,9 34,16 34,28 22,35 10,28 10,16" stroke="#f0b429" stroke-width=".7" fill="rgba(240,180,41,0.04)" opacity=".6"/>
+        <circle cx="22" cy="22" r="5" fill="#f0b429" opacity=".9"/>
+        <line x1="22" y1="2" x2="22" y2="42" stroke="#f0b429" stroke-width=".3" opacity=".3"/>
+        <line x1="3" y1="13" x2="41" y2="31" stroke="#f0b429" stroke-width=".3" opacity=".3"/>
+        <line x1="41" y1="13" x2="3" y2="31" stroke="#f0b429" stroke-width=".3" opacity=".3"/>
+      </svg>
+      <div>
+        <div class="lc-title">OFA PANEL Z</div>
+        <div class="lc-ver">ONE FOR ALL EDITION — v9.1.0 — FREE FIRE</div>
+      </div>
+    </div>
+    <div class="lc-sep"></div>
+    <div class="lc-row">
+      <span class="lc-lbl">Access Key</span>
+      <span class="lc-status"><span class="dot"></span>Servidor disponible</span>
+    </div>
+    <input id="pass-input" class="lc-input" type="password" placeholder="••••••••••" autocomplete="off" spellcheck="false"/>
+    <button id="login-btn" class="lc-btn">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+      AUTHENTICATE
+    </button>
+    <div id="login-error" class="lc-err"></div>
+    <div class="lc-foot">
+      <span class="lc-pill">SSL v1.3</span>
+      <span class="lc-pill">AES-256-GCM</span>
+      <span class="lc-pill">IP MASKED</span>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN PANEL -->
+<div id="screen-panel" class="hidden">
+  <div id="am-bg-wrap">
+    <img id="am-bg-img" src="/api/allmight" alt="" onerror="this.style.display='none'"/>
+    <div id="am-bg-overlay"></div>
+    <div id="am-bg-vignette"></div>
+  </div>
+  <canvas id="panel-particles"></canvas>
+
+  <div class="panel">
+    <div class="panel-corner tl"></div><div class="panel-corner tr"></div>
+    <div class="panel-corner bl"></div><div class="panel-corner br"></div>
+
+    <!-- HEADER -->
+    <div class="ph">
+      <div class="ph-left">
+        <svg viewBox="0 0 36 36" width="28" height="28" fill="none" style="filter:drop-shadow(0 0 10px rgba(240,180,41,0.7))">
+          <polygon points="18,2 34,11 34,25 18,34 2,25 2,11" stroke="#f0b429" stroke-width="1.4" fill="rgba(240,180,41,0.07)"/>
+          <circle cx="18" cy="18" r="4.5" fill="#f0b429"/>
         </svg>
         <div>
-          <div class="login-title">OFA PANEL Z</div>
-          <div class="login-version">ONE FOR ALL EDITION — v9.1.0</div>
+          <div class="ph-title">OFA PANEL Z</div>
+          <div class="ph-sub">One For All Edition · Free Fire v1.104.1 · Build 9104</div>
         </div>
       </div>
-      <div class="login-divider"></div>
-      <div class="login-field-label">ACCESS KEY</div>
-      <input id="pass-input" type="password" class="login-input" placeholder="••••••••••••" autocomplete="off" spellcheck="false"/>
-      <button id="login-btn" class="login-btn">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-        AUTHENTICATE
-      </button>
-      <div id="login-error" class="login-error"></div>
-      <div class="login-footer">SECURE CHANNEL · SSL · AES-256</div>
+      <div class="ph-right">
+        <div class="badge badge-online"><span class="dot-pulse"></span>ONLINE</div>
+        <div class="badge badge-ssl"><span class="dot-pulse"></span>SSL</div>
+        <div class="badge badge-proxy"><span class="dot-pulse"></span>PROXY</div>
+        <div class="ph-meta"><span id="hdr-ip">—</span></div>
+        <div class="ph-meta"><span id="hdr-time">00:00:00</span></div>
+      </div>
     </div>
-  </div>
 
-  <!-- MAIN PANEL -->
-  <div id="screen-panel" class="hidden">
-    <div class="panel-wrap">
-
-      <!-- ── HEADER ── -->
-      <div class="panel-header">
-        <div class="hdr-left">
-          <svg class="hdr-icon" viewBox="0 0 40 40" fill="none">
-            <polygon points="20,2 38,12 38,28 20,38 2,28 2,12" stroke="#f0b429" stroke-width="1.5" fill="rgba(240,180,41,0.06)"/>
-            <circle cx="20" cy="20" r="5" fill="#f0b429"/>
-          </svg>
-          <div>
-            <div class="hdr-title">OFA PANEL Z</div>
-            <div class="hdr-sub">FREE FIRE · ONE FOR ALL EDITION · v9.1.0</div>
+    <!-- BODY -->
+    <div class="pb">
+      <!-- LEFT COL -->
+      <div class="left-col">
+        <div class="tabs" id="tabs">
+          <div class="tab active" data-tab="modules">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+            MODULES
+          </div>
+          <div class="tab" data-tab="console">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+            CONSOLE
+          </div>
+          <div class="tab" data-tab="network">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="3"/><circle cx="5" cy="19" r="3"/><circle cx="19" cy="19" r="3"/><line x1="12" y1="8" x2="5" y2="16"/><line x1="12" y1="8" x2="19" y2="16"/></svg>
+            NETWORK
           </div>
         </div>
-        <div class="hdr-right">
-          <div class="badge badge-online">
-            <span class="dot-pulse"></span>ONLINE
+
+        <div class="tab-content">
+          <!-- MODULES -->
+          <div class="tab-pane active" id="tab-modules">
+            <div class="modules-pane">
+              <div class="sec-lbl">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                MÓDULOS ACTIVOS
+                <span class="sec-lbl-badge" id="modules-count">0 / 9</span>
+              </div>
+              <div id="features-list"></div>
+            </div>
           </div>
-          <div class="hdr-meta">
-            <span id="hdr-time">00:00:00</span>
-            <span class="sep">·</span>
-            <span id="hdr-ip">103.xxx.xxx.xxx</span>
+
+          <!-- CONSOLE -->
+          <div class="tab-pane" id="tab-console">
+            <div class="console-pane">
+              <div class="console-bar">
+                <div class="console-dots"><div class="cdot r"></div><div class="cdot y"></div><div class="cdot g"></div></div>
+                <div class="console-title">ofa-panel — shell v9.1</div>
+                <div class="console-clear" id="console-clear">clear</div>
+              </div>
+              <div class="console-out" id="console-out"></div>
+              <div class="console-in-wrap">
+                <span class="console-prompt">ofa@panel:~$</span>
+                <input class="console-in" id="console-in" type="text" placeholder="type a command..." autocomplete="off" spellcheck="false"/>
+              </div>
+            </div>
+          </div>
+
+          <!-- NETWORK -->
+          <div class="tab-pane" id="tab-network">
+            <div class="network-pane">
+              <div class="net-bar">
+                <span>Network Monitor</span>
+                <div class="net-filter">
+                  <div class="net-f active" data-f="all">All</div>
+                  <div class="net-f" data-f="ssl">SSL</div>
+                  <div class="net-f" data-f="api">API</div>
+                </div>
+              </div>
+              <div class="net-head-row">
+                <span>Method</span><span>URL</span><span>Status</span><span>Type</span><span>Time</span>
+              </div>
+              <div class="net-list" id="net-list"></div>
+              <div class="net-detail" id="net-detail"></div>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- ── BODY ── -->
-      <div class="panel-body">
-
-        <!-- LEFT: features -->
-        <div class="features-col">
-          <div class="col-label">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-            MODULES
-            <span id="modules-count" class="col-label-badge">0 / 9</span>
+      <!-- RIGHT SIDEBAR -->
+      <div class="right-col">
+        <!-- All Might portrait -->
+        <div class="am-portrait">
+          <canvas id="am-side-canvas"></canvas>
+          <img id="am-side-img" src="/api/allmight" alt="All Might"
+            onerror="this.style.display='none';document.querySelector('.am-side-fallback').style.display='flex'"/>
+          <div class="am-side-fallback">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#f0b429" stroke-width="1" opacity=".3"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>assets/allmight.png</span>
           </div>
-          <div id="features-list" class="features-list"></div>
-
-          <!-- LOG -->
-          <div class="col-label" style="margin-top:14px">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
-            SYSTEM LOG
+          <div class="am-overlay"></div>
+          <div class="am-label">
+            <div class="am-name">ALL MIGHT</div>
+            <div class="am-quote">"I am here!" — Plus Ultra</div>
           </div>
-          <div id="sys-log" class="sys-log"></div>
         </div>
 
-        <!-- RIGHT: All Might + stats -->
-        <div class="sidebar-col">
-          <div class="am-frame" id="am-frame">
-            <canvas id="particle-canvas"></canvas>
-            <img id="am-img" src="/api/allmight" alt="All Might" onerror="this.style.display='none';document.getElementById('am-fallback').style.display='flex'"/>
-            <div id="am-fallback" class="am-fallback" style="display:none">
-              <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#f0b429" stroke-width="1.2" opacity="0.4"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-              <span>Sin imagen</span>
-              <code>assets/allmight.png</code>
-            </div>
-            <div class="am-badge">ALL MIGHT</div>
-          </div>
-
+        <!-- Stats -->
+        <div class="stats-section">
           <div class="stats-grid">
-            <div class="stat-card">
-              <div class="stat-lbl">Sesión</div>
-              <div class="stat-val mono" id="stat-session">00:00</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-lbl">Ping</div>
-              <div class="stat-val mono" id="stat-ping">—</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-lbl">Módulos</div>
-              <div class="stat-val" id="stat-modules">0</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-lbl">Estado</div>
-              <div class="stat-val green" id="stat-status">SAFE</div>
-            </div>
+            <div class="stat"><div class="stat-l">Sesión</div><div class="stat-v mono" id="stat-session">00:00</div></div>
+            <div class="stat"><div class="stat-l">Ping</div><div class="stat-v blue mono" id="stat-ping">—</div></div>
+            <div class="stat"><div class="stat-l">Módulos</div><div class="stat-v gold" id="stat-modules">0</div></div>
+            <div class="stat"><div class="stat-l">Estado</div><div class="stat-v green" id="stat-status">SAFE</div></div>
           </div>
+        </div>
 
-          <button id="inject-btn" class="inject-btn">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        <!-- Actions -->
+        <div class="actions-section">
+          <button class="inject-btn" id="inject-btn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
             INJECT
           </button>
+          <div class="action-row">
+            <button class="action-btn" id="btn-refresh">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+              REFRESH
+            </button>
+            <button class="action-btn" id="btn-clear-all">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
+              CLEAR
+            </button>
+          </div>
+        </div>
+
+        <!-- Info strip -->
+        <div class="info-strip">
+          <div class="info-row"><span class="info-key">Proxy</span><span class="info-val" id="info-proxy">—</span></div>
+          <div class="info-row"><span class="info-key">Cipher</span><span class="info-val green">AES-256-GCM</span></div>
+          <div class="info-row"><span class="info-key">TLS</span><span class="info-val">1.3 (RFC 8446)</span></div>
+          <div class="info-row"><span class="info-key">Game ver.</span><span class="info-val">FF v1.104.1</span></div>
+          <div class="info-row"><span class="info-key">Offset base</span><span class="info-val gold" id="info-offset">0x2A4F80</span></div>
+          <div class="info-row"><span class="info-key">Requests</span><span class="info-val" id="info-reqs">0</span></div>
         </div>
       </div>
+    </div>
 
-      <!-- ── FOOTER ── -->
-      <div class="panel-footer">
-        <span>OFA PANEL Z · PLUS ULTRA EDITION</span>
-        <span id="footer-modules-status">0 modules active</span>
-        <span>FREE FIRE v1.104.1</span>
+    <!-- FOOTER -->
+    <div class="pf">
+      <span class="pf-tx">OFA Panel Z · Plus Ultra Edition</span>
+      <div class="pf-center">
+        <div class="pf-bar"><div class="pf-fill" id="pf-fill" style="width:0%"></div></div>
+        <span class="pf-pct" id="pf-pct">0%</span>
+      </div>
+      <span class="pf-tx" id="pf-modules">0 modules active</span>
+    </div>
+  </div>
+</div>
+
+<!-- INJECT OVERLAY -->
+<div id="inject-overlay" class="hidden">
+  <div class="inj-modal">
+    <div class="inj-corner tl"></div><div class="inj-corner tr"></div>
+    <div class="inj-corner bl"></div><div class="inj-corner br"></div>
+
+    <div class="inj-head">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#f0b429" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      <span class="inj-head-title">INJECTION PIPELINE</span>
+      <div class="inj-head-sub">
+        <span class="dot-pulse" style="background:var(--green);box-shadow:0 0 5px var(--green);"></span>
+        <span id="inj-stage-label">Initializing...</span>
+      </div>
+    </div>
+
+    <div class="inj-progress-area">
+      <div class="inj-prog-labels">
+        <span class="inj-prog-label" id="inj-phase">Phase 1 / 5</span>
+        <span class="inj-prog-pct" id="inj-pct">0%</span>
+      </div>
+      <div class="inj-prog-track">
+        <div class="inj-prog-fill" id="inj-bar"></div>
+      </div>
+      <div class="inj-stages" id="inj-stages"></div>
+    </div>
+
+    <div class="inj-body">
+      <div class="inj-log-col">
+        <div class="inj-col-head">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+          Injection Log
+        </div>
+        <div class="inj-log" id="inj-log"></div>
+      </div>
+      <div class="inj-net-col">
+        <div class="inj-col-head">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12"/><circle cx="12" cy="12" r="10"/></svg>
+          Network / SSL Requests
+        </div>
+        <div class="inj-net-list" id="inj-net"></div>
+      </div>
+    </div>
+
+    <div class="inj-ssl">
+      <div class="inj-ssl-grid">
+        <div class="inj-ssl-card"><div class="inj-ssl-l">Cipher Suite</div><div class="inj-ssl-v blue">TLS_AES_256_GCM_SHA384</div></div>
+        <div class="inj-ssl-card"><div class="inj-ssl-l">Certificate</div><div class="inj-ssl-v green">Valid · CA Trusted</div></div>
+        <div class="inj-ssl-card"><div class="inj-ssl-l">Proxy Chain</div><div class="inj-ssl-v gold" id="ssl-chain">US→JP→BR→MX</div></div>
+        <div class="inj-ssl-card"><div class="inj-ssl-l">Packets tx</div><div class="inj-ssl-v" id="ssl-packets">0</div></div>
+      </div>
+    </div>
+
+    <div class="inj-foot">
+      <button class="inj-close-btn hidden" id="inj-close">PLUS ULTRA — CERRAR</button>
+      <div class="inj-running-msg" id="inj-running">
+        <span class="blink">▋</span>&nbsp;Procesando pipeline de inyección...
       </div>
     </div>
   </div>
+</div>
 
-  <!-- INJECT OVERLAY -->
-  <div id="inject-overlay" class="inject-overlay hidden">
-    <div class="inject-modal">
-      <div class="inj-header">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f0b429" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-        <span>INJECTION PIPELINE</span>
-      </div>
-      <div class="inj-progress-wrap">
-        <div class="inj-progress-bg">
-          <div id="inj-bar" class="inj-bar"></div>
-        </div>
-        <div id="inj-pct" class="inj-pct">0%</div>
-      </div>
-      <div id="inj-log" class="inj-log"></div>
-      <button id="inj-close" class="inj-close hidden">
-        PLUS ULTRA — CERRAR
-      </button>
-    </div>
-  </div>
-
-  <script src="/js/panel.js"></script>
+<script src="/js/panel.js"></script>
 </body>
 </html>
